@@ -1,0 +1,1 @@
+<view><canvas style="{{'width:'+(width)+';'+('height:'+(height)+';')}}" id="canvas" disable-scroll="true" canvas-id="cid" data-event-opts="{{[['touchstart',[['starts',['$event']]]],['touchmove',[['moves',['$event']]]],['touchend',[['end',['$event']]]]]}}" bindtouchstart="__e" bindtouchmove="__e" bindtouchend="__e"></canvas></view>
