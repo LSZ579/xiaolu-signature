@@ -1,27 +1,38 @@
 <template>
 	<view class="content">
-		<xiaolu-signature></xiaolu-signature>
+		<button type="primary" @click="tosign">去签名</button>
+		<view style="margin: 10px auto;">
+			<image v-if="img" class="img" :src="img" mode=""></image>
+			
+		</view>
 	</view>
 </template>
 
 <script>
-	import XiaoluSignature from '../../components/xiaolu-signature/index.vue'
 	export default {
-		components:{XiaoluSignature},
 		data() {
 			return {
-				
+				img:''
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			tosign(){
+				uni.navigateTo({
+					url:'../singature/singature'
+				})
+			}
 		}
 	}
 </script>
 
 <style>
-	
+	.img{
+		transform: rotate(-90deg);
+		width: 252rpx;
+		/* margin-top: 252rpx; */
+		margin-left: 200rpx;
+	}
 </style>
