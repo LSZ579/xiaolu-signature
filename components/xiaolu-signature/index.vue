@@ -8,12 +8,21 @@
 				保存
 			</view>
 		</view>
-		<canvas id="canvas" disable-scroll="true" :style="{'width':width,'height':height}" canvas-id="cid" @touchstart="starts"
+		<canvas class="canvas" disable-scroll="true" :style="{'width':width,'height':height}" canvas-id="designature" @touchstart="starts"
 		 @touchmove="moves" @touchend="end"></canvas>
 	</view>
 </template>
 
 <script>
+	
+	/*
+	*	已兼容h5和小程序端
+	* 
+	*	如有问题可以加qq：122720267
+	* 	里面的计算都是自己转换公式得出的，不容易啊
+	*	使用该插件的朋友请给个好评，或者到git start一下
+	* 
+	*/
 	export default {
 		data() {
 			return {
@@ -28,13 +37,11 @@
 		created() {
 			uni.getSystemInfo({
 				success: (res) => {
-
 					this.width = res.windowWidth - 50 + 'px';
 					this.height = res.windowHeight - 15 + 'px';
-
 				}
 			});
-			this.dom = uni.createCanvasContext('cid');
+			this.dom = uni.createCanvasContext('designature',this);
 		},
 		methods: {
 			end(e) {
@@ -46,6 +53,7 @@
 				return Math.sqrt(x * x + y * y);
 			},
 			starts(e) {
+				console.log(e)
 				this.line.push({
 					points: [{
 						time: new Date().getTime(),
@@ -62,6 +70,7 @@
 				this.drawer(this.line[this.line.length - 1])
 			},
 			moves(e) {
+				console.log(e)
 				let point = {
 					x: e.touches[0].x,
 					y: e.touches[0].y
@@ -90,24 +99,20 @@
 					y1 = lines.y;
 					x2 = end.x;
 					y2 = end.y;
-					// console.log(x, y)
 					var dis = 0;
 					time = (line.time - lines.time) + (end.time - line.time)
 					dis = line.dis + lines.dis + end.dis;
-					var dom = uni.createCanvasContext('cid');
+					var dom = this.dom;
 					var or = Math.min(time / dis * this.linePressure + this.lineMin, this.lineMax);
-					// P0（x1,y1）,P2(x2,y2), P1(cx,cy)起点，终点，控制点
 					cx = (x - (Math.pow(1 - t, 2) * x1) - Math.pow(t, 2) * x2) / (2 * t * (1 - t))
 					cy = (y - (Math.pow(1 - t, 2) * y1) - Math.pow(t, 2) * y2) / (2 * t * (1 - t))
 					dom.setLineCap('round')
 					dom.beginPath();
-					// dom.strokeStyle = 'black';
 					dom.setStrokeStyle('black')
 					dom.setLineWidth(5)
-					// dom.lineWidth = 5;
-					// 起始点
 					dom.moveTo(x1, y1);
 					dom.quadraticCurveTo(cx, cy, x2, y2);
+					
 					dom.stroke();
 					dom.draw(true)
 				}
@@ -119,18 +124,22 @@
 			},
 			save() {
 				var t=this;
+				console.log(555)
 				uni.canvasToTempFilePath({
-					canvasId: 'cid',
-					fileType: 'png',
+					canvasId: 'designature',
+					fileType: 'jpg',
 					quality: 1, //图片质量
-					success(res) {
-						// console.log(res.tempFilePath)
+					success:function(res) {
+						console.log(res.tempFilePath)
 						t.$emit('getImg',res.tempFilePath)
-						uni.navigateBack({
-							delta:1
-						})
+						// uni.navigateBack({
+						// 	delta:1
+						// })
+					},
+					fail(e){
+						console.log(e)
 					}
-				})
+				},this)
 			}
 		}
 	}
@@ -141,24 +150,19 @@
 		position: relative;
 		overflow: hidden;
 		background-color: #fbfbfb;
-		// background-color: #aa55ff;
-		height: 100vhh;
+		height: 100vh;
 		width: 100vw;
-		#canvas {
-			background-color: white;
-			margin-left: 110rpx;
+		.canvas {
+			background-color: #FFFFFF;
+			position: absolute;
+			z-index: 9999;
+			left: 45px;
 			border: 1px solid #d6d6d6;
 		}
-
-		.content {
-			margin-left: 60px;
-			height: 100vh;
-			background-color: white;
-		}
-
 		.btn {
 			height: 100vh;
 			position: fixed;
+			background-color: #007AFF;
 			font-size: 32rpx;
 			.cancel-btn {
 				width: 42vh;
