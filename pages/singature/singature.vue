@@ -17,6 +17,7 @@
 			getImg(e){
 				var pages = getCurrentPages(); 
 				var prevPage = pages[pages.length - 2]; 
+				
 				//prevPage.img = e//小程序写法
 				prevPage.$vm.img =e//h5写法
 			}

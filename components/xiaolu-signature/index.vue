@@ -127,7 +127,7 @@
 				console.log(555)
 				uni.canvasToTempFilePath({
 					canvasId: 'designature',
-					fileType: 'jpg',
+					fileType: 'png',
 					quality: 1, //图片质量
 					success:function(res) {
 						console.log(res.tempFilePath)
