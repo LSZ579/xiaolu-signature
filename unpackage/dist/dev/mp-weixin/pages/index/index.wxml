@@ -1,1 +1,1 @@
-<view class="content"><xiaolu-signature vue-id="8dd740cc-1" bind:__l="__l"></xiaolu-signature></view>
+<view class="content"><button type="primary" data-event-opts="{{[['tap',[['tosign',['$event']]]]]}}" bindtap="__e">去签名</button><view style="margin:10px auto;"><block wx:if="{{img}}"><image class="img" src="{{img}}" mode></image></block></view></view>

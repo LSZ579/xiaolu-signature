@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "签字板",
+  "usingComponents": {
+    "xiaolu-signature": "/components/xiaolu-signature/xiaolu-signature"
+  }
+}
