@@ -1,0 +1,1 @@
+<view class="content"><xiaolu-signature vue-id="0dc71572-1" width="600" height="400" data-event-opts="{{[['^getImg',[['getImg']]]]}}" bind:getImg="__e" bind:__l="__l"></xiaolu-signature></view>
